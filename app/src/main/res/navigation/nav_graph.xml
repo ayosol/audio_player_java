@@ -12,11 +12,16 @@
         tools:layout="@layout/fragment_record" >
         <action
             android:id="@+id/action_recordFragment_to_audioListFragment"
-            app:destination="@id/audioListFragment" />
+            app:destination="@id/audioListFragment"
+            app:enterAnim="@anim/slide_in"
+            app:popExitAnim="@anim/slide_out"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"/>
     </fragment>
     <fragment
         android:id="@+id/audioListFragment"
         android:name="com.example.audiorecorderjava.AudioListFragment"
         android:label="fragment_audio_list"
-        tools:layout="@layout/fragment_audio_list" />
+        tools:layout="@layout/fragment_audio_list" >
+    </fragment>
 </navigation>
