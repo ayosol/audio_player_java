@@ -25,11 +25,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link RecordFragment} factory method to
- * create an instance of this fragment.
- */
 public class RecordFragment extends Fragment implements View.OnClickListener {
 
     private static final int PERMISSION_CODE = 100;
