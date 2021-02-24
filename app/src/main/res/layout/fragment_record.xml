@@ -44,7 +44,7 @@
 
 
     <ImageButton
-        android:id="@+id/record_btn"
+        android:id="@+id/btn_record"
         android:background="@android:color/white"
         app:layout_constraintTop_toBottomOf="@id/record_timer"
         app:layout_constraintStart_toStartOf="parent"
@@ -57,9 +57,9 @@
     <ImageButton
         android:id="@+id/btn_record_list"
         android:background="@android:color/white"
-        app:layout_constraintTop_toTopOf="@id/record_btn"
-        app:layout_constraintBottom_toBottomOf="@id/record_btn"
-        app:layout_constraintStart_toEndOf="@id/record_btn"
+        app:layout_constraintTop_toTopOf="@id/btn_record"
+        app:layout_constraintBottom_toBottomOf="@id/btn_record"
+        app:layout_constraintStart_toEndOf="@id/btn_record"
         app:layout_constraintEnd_toEndOf="parent"
         android:padding="16dp"
         android:src="@drawable/recorder_list_btn"
