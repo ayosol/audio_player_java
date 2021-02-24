@@ -12,10 +12,13 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Chronometer;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -30,14 +33,18 @@ import java.util.Locale;
 public class RecordFragment extends Fragment implements View.OnClickListener {
 
     private static final int PERMISSION_CODE = 100;
+
     private NavController navController;
-    private ImageButton btn_list, btn_record;
+
+    private ImageButton btn_record_list, btn_record;
+    private TextView txt_filename;
     private boolean isRecording = false;
 
-
     private MediaRecorder mediaRecorder;
-
     private String record_file;
+
+    private Chronometer timer;
+
 
     public RecordFragment() {
         // Required empty public constructor
@@ -56,10 +63,12 @@ public class RecordFragment extends Fragment implements View.OnClickListener {
         super.onViewCreated(view, savedInstanceState);
 
         navController = Navigation.findNavController(view);
-        btn_list = view.findViewById(R.id.btn_record_list);
+        btn_record_list = view.findViewById(R.id.btn_record_list);
         btn_record = view.findViewById(R.id.btn_record);
+        txt_filename = view.findViewById(R.id.record_filename);
+        timer = view.findViewById(R.id.record_timer);
 
-        btn_list.setOnClickListener(this);
+        btn_record_list.setOnClickListener(this);
         btn_record.setOnClickListener(this);
     }
 
@@ -90,17 +99,27 @@ public class RecordFragment extends Fragment implements View.OnClickListener {
     }
 
     private void stopRecording() {
+        //Stop timer
+        timer.stop();
+
+        txt_filename.setText("Recording stopped, File Saved as " + record_file);
+
         mediaRecorder.stop();
         mediaRecorder.release();
         mediaRecorder = null;
     }
 
     private void startRecording() {
+        //Start timer
+        timer.setBase(SystemClock.elapsedRealtime());
+        timer.start();
+
         //Create FilePath
         String record_path = getActivity().getExternalFilesDir("/").getAbsolutePath();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy_MM_dd_hh_mm_ss", Locale.getDefault());
         Date date = new Date();
         record_file = "recording" + dateFormat.format(date) + ".3gp";
+        txt_filename.setText("Recording, File name: " + record_file);
 
         mediaRecorder = new MediaRecorder();
         mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
