@@ -139,4 +139,10 @@ public class RecordFragment extends Fragment implements View.OnClickListener {
             return false;
         }
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+    }
 }

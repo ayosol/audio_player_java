@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,13 +18,14 @@ import com.example.audiorecorderjava.adapter.AudioListAdapter;
 import java.io.File;
 
 
-public class AudioListFragment extends Fragment {
+public class AudioListFragment extends Fragment implements AudioListAdapter.onItemListClick {
 
     private RecyclerView audio_list;
 
     private File[] audio_files;
 
     private AudioListAdapter audioListAdapter;
+
 
     public AudioListFragment() {
         // Required empty public constructor
@@ -48,12 +50,15 @@ public class AudioListFragment extends Fragment {
         audio_files = directory.listFiles();
 
         //Use a recyclerView to populate the files
-        audioListAdapter = new AudioListAdapter(audio_files);
+        audioListAdapter = new AudioListAdapter(audio_files, this);
         audio_list.setHasFixedSize(true);
         audio_list.setLayoutManager(new LinearLayoutManager(getContext()));
         audio_list.setAdapter(audioListAdapter);
 
+    }
 
-
+    @Override
+    public void onClickListener(File file, int position) {
+        Log.d("PLAY", "File playing is: " + file.getName());
     }
 }
