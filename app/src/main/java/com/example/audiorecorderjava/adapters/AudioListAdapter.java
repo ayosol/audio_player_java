@@ -1,6 +1,5 @@
-package com.example.audiorecorderjava.adapter;
+package com.example.audiorecorderjava.adapters;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.audiorecorderjava.R;
-import com.example.audiorecorderjava.TimeDisplayFormatter;
+import com.example.audiorecorderjava.helpers.TimeDisplayFormatter;
 
 import java.io.File;
 

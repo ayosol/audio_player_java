@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/img_player_icon"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="4"
@@ -28,7 +28,7 @@
             app:srcCompat="@drawable/player_header_icon" />
 
         <TextView
-            android:id="@+id/player_header_name"
+            android:id="@+id/txt_player_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="3"
@@ -42,7 +42,7 @@
 
 
         <TextView
-            android:id="@+id/player_header_title"
+            android:id="@+id/txt_player_status"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="3"
@@ -57,7 +57,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/txt_file_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -73,7 +73,7 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     <ImageButton
-        android:id="@+id/player_play_btn"
+        android:id="@+id/btn_play"
         android:background="@color/colorPrimary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -81,41 +81,42 @@
         android:padding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        app:layout_constraintTop_toBottomOf="@+id/txt_file_name"
         app:srcCompat="@drawable/player_play_btn" />
 
     <ImageButton
-        android:id="@+id/imageView3"
+        android:id="@+id/btn_backward"
         android:background="@color/colorPrimary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/player_play_btn"
-        app:layout_constraintEnd_toStartOf="@+id/player_play_btn"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_play"
+        app:layout_constraintEnd_toStartOf="@+id/btn_play"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/player_play_btn"
+        app:layout_constraintTop_toTopOf="@+id/btn_play"
         app:srcCompat="@drawable/player_back_btn" />
 
     <ImageButton
-        android:id="@+id/imageView4"
+        android:id="@+id/btn_forward"
         android:background="@color/colorPrimary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/player_play_btn"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_play"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/player_play_btn"
-        app:layout_constraintTop_toTopOf="@+id/player_play_btn"
+        app:layout_constraintStart_toEndOf="@+id/btn_play"
+        app:layout_constraintTop_toTopOf="@+id/btn_play"
         app:srcCompat="@drawable/player_forward_btn" />
 
     <SeekBar
+        android:id="@+id/player_seek_bar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/player_play_btn" />
+        app:layout_constraintTop_toBottomOf="@id/btn_play" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
