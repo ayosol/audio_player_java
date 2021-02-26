@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.audiorecorderjava.adapters.AudioListAdapter;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -82,26 +83,71 @@ public class AudioListFragment extends Fragment implements AudioListAdapter.onIt
         audio_list.setHasFixedSize(true);
         audio_list.setLayoutManager(new LinearLayoutManager(getContext()));
         audio_list.setAdapter(audioListAdapter);
+
+        btn_play.setOnClickListener(v -> {
+            if (fileToPlay != null){
+                if (isPlaying){
+                    pauseAudio();
+                }
+                else{
+                    resumeAudio();
+                }
+            }
+        });
+
+        player_seek_bar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                if (fileToPlay != null) {
+                    if (isPlaying){
+                        pauseAudio();
+                        resumeAudio();
+                    }
+                    else {
+                        pauseAudio();
+                    }
+                }
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                if (fileToPlay != null) {
+                    int progress = seekBar.getProgress();
+                    mediaPlayer.seekTo(progress);
+                    if (isPlaying){
+                        resumeAudio();
+                    }
+                }
+            }
+        });
     }
 
     @Override
     public void onClickListener(File file, int position) {
         Log.d("PLAY", "File playing is: " + file.getName());
+        fileToPlay = file;
         if (isPlaying){
-            stopAudio();
-        }
-        else {
-            fileToPlay = file;
+            pauseAudio();
         }
         playAudio(fileToPlay);
     }
 
-    private void stopAudio() {
+    private void resumeAudio() {
+        isPlaying = true;
+        btn_play.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.player_pause_btn));
+        mediaPlayer.start();
+    }
+
+    private void pauseAudio() {
         isPlaying = false;
         btn_play.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.player_play_btn));
-        txt_player_status.setText("Stopped");
-        mediaPlayer.stop();
-        mediaPlayer.release();
+        txt_player_status.setText("Paused");
+        mediaPlayer.pause();
     }
 
     private void playAudio(File fileToPlay) {
@@ -125,7 +171,7 @@ public class AudioListFragment extends Fragment implements AudioListAdapter.onIt
         isPlaying = true;
 
         mediaPlayer.setOnCompletionListener(mp -> {
-            stopAudio();
+            pauseAudio();
             txt_player_status.setText("Finished");
         });
 
@@ -142,6 +188,23 @@ public class AudioListFragment extends Fragment implements AudioListAdapter.onIt
 
         };
         seekBarHandler.postDelayed(updateSeekBar, 0);
+
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mediaPlayer != null){
+            isPlaying = false;
+            mediaPlayer.stop();
+            mediaPlayer.release();
+            Toast.makeText(getContext(), "MediaPlayer stopped", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
 
     }
 }

@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.Chronometer;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -86,6 +87,8 @@ public class RecordFragment extends Fragment implements View.OnClickListener {
                         btn_record.setImageDrawable(getResources().getDrawable(R.drawable.record_btn_recording, null));
                         startRecording();
                         isRecording = true;
+                        Toast.makeText(getContext(), "Recording started", Toast.LENGTH_LONG).show();
+
                     }
                 }
                 break;
@@ -102,6 +105,7 @@ public class RecordFragment extends Fragment implements View.OnClickListener {
         mediaRecorder.stop();
         mediaRecorder.release();
         mediaRecorder = null;
+        Toast.makeText(getContext(), "Recording stopped", Toast.LENGTH_LONG).show();
     }
 
     private void startRecording() {
@@ -144,5 +148,14 @@ public class RecordFragment extends Fragment implements View.OnClickListener {
     public void onPause() {
         super.onPause();
 
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mediaRecorder != null){
+            stopRecording();
+            Toast.makeText(getContext(), "Recording stopped", Toast.LENGTH_LONG).show();
+        }
     }
 }
